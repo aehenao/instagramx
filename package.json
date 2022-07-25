@@ -1,0 +1,30 @@
+{
+  "name": "instagram_api_x",
+  "version": "1.0.0",
+  "description": "Library for consulting instagram profiles through the official API, no access token is required.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "tsc && node dist/test.js",
+    "start": "tsc && node dist/index.js"
+  },
+  "keywords": [
+    "instagram",
+    "api",
+    "instagram",
+    "get",
+    "followers",
+    "followings",
+    "ig"
+  ],
+  "author": "Andres S. Henao <https://t.me/ashenaom>",
+  "license": "MIT",
+  "devDependencies": {
+    "tslint": "^6.1.3",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "node-fetch": "^3.2.9",
+    "puppeteer": "^15.4.0"
+  }
+}
