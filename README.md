@@ -20,7 +20,7 @@ Obtain profile information
 Install my-project with npm
 
 ```bash
-  npm npm i instagram-x
+ npm i instagram-x
 ```
     
 ## Usage/Examples
