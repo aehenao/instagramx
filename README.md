@@ -12,7 +12,6 @@ Obtain profile information
 * biography.
 * profile photos.
 * verified account.
-* Publications
 * etc..
 
 ## Installation
@@ -22,7 +21,64 @@ Install my-project with npm
 ```bash
  npm i instagram-x
 ```
-    
+
+
+## Methods
+
+#### constructor()
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `puppeteer_options` | `object` | Puppeteer native options |
+| `dir_session` | `any` | Path where chrome session data is stored |
+| `user_agent` | `string` | String containing navigation agent data. |
+
+#### login()
+Return promise True or False
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `username`      | `string` | **Required**. User with which to log in. |
+| `password` | `string` | **Required**. User password with which to log in. |
+
+#### getUserId()
+
+Return promise user id
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `username`      | `string` | **Required**. User to whom you want to obtain the Instagram ID. |
+
+#### profileInfo()
+
+Return promise object
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `username`      | `string` | **Required**. Return promise object which contains all account information. |
+
+#### getListFollowers()
+
+Return promise array of object
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `username`      | `string` | **Required**. Return promise object which contains all account information. |
+| `user_id` | `number` | **Required**. |
+| `after` | `string` | Hash of the following query. |
+
+#### getListFollowings()
+
+Return promise array of object
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `username`      | `string` | **Required**. Return promise object which contains all account information. |
+| `user_id` | `number` | **Required**. |
+| `after` | `string` | Hash of the following query. |
+
+#### getSessionStatus()
+Return promise boolean.
+
+Validates if the .session folder exists which stores the chromiun profile information
+
+#### removeSession()
+Delete the folder that saves the session files 
 ## Usage/Examples
 
 ```javascript
@@ -30,8 +86,8 @@ import InstaX from "instagram-x";
 
 const instaX = new InstaX();
 
-let username = 'user';
-let password = 'pass';
+let username: string = 'user';
+let password: string = 'pass';
 
 (() => {
     instaX.login(username, password)
