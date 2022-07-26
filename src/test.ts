@@ -2,17 +2,17 @@ import InstaX from "./index";
 
 const instaX = new InstaX();
 
-let username = '';
-let password = '';
+let username = 'andyprueba12';
+let password = 'Patito123';
 
 (() => {
     instaX.login(username, password)
     .then(status => {
         if(status) {
             let username: string = 'beautypalace_shop';
-            instaX.getUserId(username)
-            .then(user_id => {
-                instaX.getListFollowings(username, user_id, '')
+            instaX.profileInfo(username)
+            .then(info => {
+                instaX.getListFollowings(username, info.data.user.id, '')
                 .then(res => {
                     console.log(res);
                 }).catch(err => {

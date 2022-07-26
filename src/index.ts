@@ -127,7 +127,7 @@ export default class InstaX {
      * @param username Username to search
      * @returns Object with user account information.
      */
-    async profileInfo(username: string): Promise<object> { 
+    async profileInfo(username: string): Promise<any> { 
         if(!await this.__getHeaders(username)) throw 'Error al crear el encabezado';
         try {
             let response = await fetch(this.ig_api_url + 'users/web_profile_info/?username=' + username,{
@@ -137,7 +137,7 @@ export default class InstaX {
             })
             if(!await response.ok) return {};
             let data = await response.json();
-            return (<object>data); 
+            return (<any>data); 
         } catch (error) {
            throw error; 
         }
@@ -145,7 +145,6 @@ export default class InstaX {
 
     async __getHeaders(username: string): Promise<boolean> { 
         if(this.status_session && (Object.keys(this.headers).length > 0) && this.old_username === username) return true;
-
         try {
             username = username.trim();
             await this.page.goto(this.ig_url + '/' + username);
@@ -294,6 +293,14 @@ export default class InstaX {
            return true;
         } catch (error) {
            return false; 
+        }
+    }
+
+    async browserClose() {
+        try {
+            await this.browser.close();        
+        } catch (error) {
+           throw error; 
         }
     }
 
