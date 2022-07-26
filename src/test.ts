@@ -12,7 +12,7 @@ let password = '';
             let username: string = 'beautypalace_shop';
             instaX.getUserId(username)
             .then(user_id => {
-                instaX.getListFollowers(username, user_id, '')
+                instaX.getListFollowings(username, user_id, '')
                 .then(res => {
                     console.log(res);
                 }).catch(err => {

@@ -21,6 +21,7 @@ export default class InstaX {
     user_agent       : string;
     ig_grap_url      : string;
     query_hash       : QueryHash;
+    old_username     : string;
 
     /**
      * 
@@ -49,6 +50,7 @@ export default class InstaX {
             followers: '37479f2b8209594dde7facb0d904896a',
             following: '58712303d941c6855d4e888c5f0cd22f'
         };
+        this.old_username      = '';
     }
 
     /**
@@ -59,7 +61,9 @@ export default class InstaX {
      */
     async login(username: string, password: string): Promise<boolean> {
         try {
+            if(username.length === 0 && password.length === 0) return false;
             if (fs.existsSync(this.dir_session)) this.status_session = true;
+
             this.browser = await puppeteer.launch(this.puppeteer_options);
             this.page = await this.browser.newPage();
 
@@ -140,9 +144,10 @@ export default class InstaX {
      }
 
     async __getHeaders(username: string): Promise<boolean> { 
-        if(this.status_session && (Object.keys(this.headers).length > 0) ) return true;
+        if(this.status_session && (Object.keys(this.headers).length > 0) && this.old_username === username) return true;
 
         try {
+            username = username.trim();
             await this.page.goto(this.ig_url + '/' + username);
             await this.page.waitForSelector(`a[href='/${username}/followers/'`);
             await this.page.waitForTimeout(800);
@@ -183,6 +188,7 @@ export default class InstaX {
                 'Cookie': `mid=${mid[0].value}; ig_did=${ig_did[0].value}; ig_nrcb=${ig_nrcb[0].value}; csrftoken=${this.csrf_token}; ds_user_id=${ds_user_id[0].value}; sessionid=${sessionid[0].value}; rur=${rur[0].value}`
                 }
             }
+            this.old_username = username;
             return true;
         } catch (error) {
            throw error; 
@@ -215,8 +221,8 @@ export default class InstaX {
 
             if(await response.ok) {
                 response = await response.json();
-                let followers = response.data.user.edge_followed_by.edges;
-                let { has_next_page, end_cursor } = response.data.user.edge_followed_by.page_info;
+                let followers = response.data?.user.edge_followed_by.edges;
+                let { has_next_page, end_cursor } = response.data?.user.edge_followed_by.page_info;
                 data.push({
                     users: followers,
                     next_page: has_next_page,
@@ -257,8 +263,8 @@ export default class InstaX {
 
             if(await response.ok) {
                 response = await response.json();
-                let followings = response.data.user.edge_follow.edges;
-                let { has_next_page, end_cursor } = response.data.user.edge_follow.page_info;
+                let followings = response.data?.user.edge_follow.edges;
+                let { has_next_page, end_cursor } = response.data?.user.edge_follow.page_info;
                 data.push({
                     users: followings,
                     next_page: has_next_page,

@@ -1,11 +1,11 @@
 {
   "name": "instagram-x",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Library for consulting instagram profiles through the official API, no access token is required.",
   "main": "dist/index.js",
   "scripts": {
     "test": "tsc && node dist/test.js",
-    "start": "tsc && node dist/index.js"
+    "build": "tsc && node dist/index.js"
   },
   "keywords": [
     "instagram",
