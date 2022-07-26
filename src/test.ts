@@ -1,9 +1,10 @@
 import InstaX from "./index";
+import 'dotenv/config'
 
 const instaX = new InstaX();
 
-let username: string = '';
-let password: string = '';
+let username: string = process.env.USERNAME;
+let password: string = process.env.PASSWORD;
 
 (() => {
     instaX.login(username, password)
