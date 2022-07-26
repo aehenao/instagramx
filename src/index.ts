@@ -257,8 +257,8 @@ export default class InstaX {
 
             if(await response.ok) {
                 response = await response.json();
-                let followings = response.data.user.edge_followed_by.edges;
-                let { has_next_page, end_cursor } = response.data.user.edge_followed_by.page_info;
+                let followings = response.data.user.edge_follow.edges;
+                let { has_next_page, end_cursor } = response.data.user.edge_follow.page_info;
                 data.push({
                     users: followings,
                     next_page: has_next_page,
