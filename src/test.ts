@@ -2,8 +2,8 @@ import InstaX from "./index";
 
 const instaX = new InstaX();
 
-let username = 'andyprueba12';
-let password = 'Patito123';
+let username: string = '';
+let password: string = '';
 
 (() => {
     instaX.login(username, password)
